@@ -4,6 +4,7 @@
   },
   "extends": [
     "plugin:react/recommended",
+    "plugin:react/recommended",
     "standard-with-typescript",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
@@ -45,6 +46,9 @@
   "settings": {
     "import/resolver": {
       "typescript": {}
+    },
+    "react": {
+      "version": "detect"
     }
   }
 }

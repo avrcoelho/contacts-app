@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { Urls } from '@/constants/Urls';
+
 export const api = axios.create({
-  baseURL: 'https://dummyjson.com',
+  baseURL: Urls.API_URL,
 });
