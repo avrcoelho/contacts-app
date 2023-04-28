@@ -1,22 +1,6 @@
-import { type User } from '@/models/User';
-
-import { api } from '../libs/axios';
-import { type ApiResponse } from '../models/ApiResponse';
-
-interface GEtUserParams {
-  search: string;
-  searchBy: 'firstName' | 'email';
-  skip?: number;
-}
-
-type Users = ApiResponse<{ users: User[] }>;
-
-const LIMIT = 20;
-const DEFAULT_PARAMS: GEtUserParams = {
-  search: '',
-  searchBy: 'firstName',
-  skip: 0,
-};
+import { DEFAULT_PARAMS, LIMIT } from '@/constants/GetUser';
+import { api } from '@/libs/axios';
+import { type Users } from '@/types/Users';
 
 export const getUsers = async ({
   search,
