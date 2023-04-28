@@ -1,5 +1,3 @@
-import { Text } from 'react-native';
-
 import { UserItem } from '@/components/UserItem';
 
 import { Container, UsersList } from './styles';
@@ -8,6 +6,7 @@ import { useController } from './useController';
 export const Users = (): JSX.Element => {
   const {
     isLoading,
+    isRefreshing,
     searchBy,
     hasSearch,
     total,
@@ -27,7 +26,7 @@ export const Users = (): JSX.Element => {
         onEndReached={onEndReached}
         onEndReachedThreshold={0.1}
         onRefresh={onRefreshList}
-        refreshing={isLoading}
+        refreshing={isRefreshing}
         keyboardDismissMode="on-drag"
         keyboardShouldPersistTaps="handled"
         viewabilityConfig={{ viewAreaCoveragePercentThreshold: 20 }}

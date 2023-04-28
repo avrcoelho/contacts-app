@@ -13,10 +13,11 @@ interface UseControllerReturn {
   searchBy: SearchBy;
   hasSearch: boolean;
   users: User[];
+  isRefreshing: boolean;
   total?: number;
   onUpdateSearchBy: (value: SearchBy) => void;
   onSearch: (value: string) => void;
-  onRefreshList: () => void;
+  onRefreshList: () => Promise<void>;
   onEndReached: () => void;
   onClearSearch: () => void;
 }
@@ -25,6 +26,7 @@ const DEBOUNCE_DELAY = 500;
 
 export const useController = (): UseControllerReturn => {
   const [searchBy, setSearchBy] = useState<SearchBy>('firstName');
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [hasSearch, setHasSearch] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
   const searchRef = useRef('');
@@ -64,9 +66,11 @@ export const useController = (): UseControllerReturn => {
     refetch();
   };
 
-  const onRefreshList = (): void => {
+  const onRefreshList = async (): Promise<void> => {
     skipRef.current = 0;
-    refetch();
+    setIsRefreshing(true);
+    await refetch();
+    setIsRefreshing(false);
   };
 
   const onDebaounce = useDebounce(DEBOUNCE_DELAY);
@@ -98,6 +102,7 @@ export const useController = (): UseControllerReturn => {
     hasSearch,
     total: data?.total,
     users,
+    isRefreshing,
     onUpdateSearchBy,
     onRefreshList,
     onEndReached,
