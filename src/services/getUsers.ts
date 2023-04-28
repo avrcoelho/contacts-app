@@ -1,4 +1,4 @@
-import { DEFAULT_PARAMS, LIMIT } from '@/constants/GetUser';
+import { DEFAULT_PARAMS, LIMIT } from '@/constants/getUser';
 import { api } from '@/libs/axios';
 import { type Users } from '@/types/Users';
 
