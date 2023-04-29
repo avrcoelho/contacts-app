@@ -27,6 +27,7 @@ export const Users = (): JSX.Element => {
         onEndReachedThreshold={0.1}
         onRefresh={onRefreshList}
         refreshing={isRefreshing}
+        initialNumToRender={4}
         keyboardDismissMode="on-drag"
         keyboardShouldPersistTaps="handled"
         viewabilityConfig={{ viewAreaCoveragePercentThreshold: 20 }}
