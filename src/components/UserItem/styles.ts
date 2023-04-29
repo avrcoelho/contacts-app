@@ -5,7 +5,7 @@ import { Colors } from '@/constants/Colors';
 
 export const Container = styled(RectButton)`
   width: 100%;
-  height: 60px;
+  height: 72px;
   flex-direction: row;
   align-items: center;
   background-color: ${Colors.WHITE};
@@ -17,4 +17,5 @@ export const FullName = styled.Text.attrs({
 })`
   font-size: 16px;
   font-weight: bold;
+  margin-left: 12px;
 `;
