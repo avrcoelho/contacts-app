@@ -1,6 +1,11 @@
+import { useMemo } from 'react';
+
 import { UserItem } from '@/components/UserItem';
 
-import { Container, UsersList } from './styles';
+import { InputRadio } from '../../components/inputs/Radio';
+import { InputSearch } from '../../components/inputs/Search';
+import { searchByOptions } from '../../constants/searchByOptions';
+import { Container, ItemSeparator, UsersList } from './styles';
 import { useController } from './useController';
 
 export const Users = (): JSX.Element => {
@@ -11,12 +16,30 @@ export const Users = (): JSX.Element => {
     hasSearch,
     total,
     users,
-    onUpdateSearchBy,
+    onChangeSearchBy,
     onRefreshList,
     onEndReached,
     onClearSearch,
     onSearch,
   } = useController();
+
+  const listHeader = useMemo(
+    () => (
+      <>
+        <InputSearch
+          hasSearch={hasSearch}
+          onClearSearch={onClearSearch}
+          onSearch={onSearch}
+        />
+        <InputRadio
+          options={searchByOptions}
+          value={searchBy}
+          onChange={onChangeSearchBy}
+        />
+      </>
+    ),
+    [hasSearch, onClearSearch, onSearch, onChangeSearchBy, searchBy],
+  );
 
   return (
     <Container>
@@ -31,7 +54,9 @@ export const Users = (): JSX.Element => {
         keyboardDismissMode="on-drag"
         keyboardShouldPersistTaps="handled"
         viewabilityConfig={{ viewAreaCoveragePercentThreshold: 20 }}
-        renderItem={UserItem}
+        renderItem={({ item }) => <UserItem item={item} />}
+        ListHeaderComponent={listHeader}
+        ItemSeparatorComponent={ItemSeparator}
       />
     </Container>
   );

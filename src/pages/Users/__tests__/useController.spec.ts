@@ -80,12 +80,12 @@ describe('Contact hook controller', () => {
     });
   });
 
-  it('should be able to update searchBy value', async () => {
+  it('should be able to change searchBy value', async () => {
     mockGetUsers.mockResolvedValue(usersMOck);
     const { result } = renderHook(useController);
 
     act(() => {
-      result.current.onUpdateSearchBy('email');
+      result.current.onChangeSearchBy('email');
     });
 
     expect(result.current.searchBy).toBe('email');

@@ -4,7 +4,8 @@ import { Colors } from '@/constants/Colors';
 
 export const Container = styled.View`
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
+  flex-direction: row;
 `;
 
 export const Field = styled.TouchableOpacity`
@@ -12,7 +13,7 @@ export const Field = styled.TouchableOpacity`
   height: 20px;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 10px;
+  margin-left: 16px;
 `;
 
 interface ButtomProps {
@@ -25,17 +26,17 @@ const selectedStyle = css`
 `;
 
 export const Circle = styled.View<ButtomProps>`
-  height: 20px;
-  width: 20px;
-  border-radius: 10px;
+  height: 18px;
+  width: 18px;
+  border-radius: 9px;
   margin-right: 8px;
   border-width: 1px;
-  border-color: ${Colors.LIGHT_GRAY};
+  border-color: ${Colors.GRAY};
   background-color: transparent;
   ${({ $isSelected }) => $isSelected && selectedStyle};
 `;
 
 export const Label = styled.Text`
-  font-size: 16px;
+  font-size: 14px;
   color: ${Colors.DARK};
 `;

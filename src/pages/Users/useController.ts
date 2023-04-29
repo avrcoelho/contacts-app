@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNotification } from 'react-native-hook-notification';
 
 import { LIMIT } from '@/constants/getUser';
@@ -6,6 +6,7 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { useQuery } from '@/hooks/useQuery';
 import { type User } from '@/models/User';
 import { getUsers } from '@/services/getUsers';
+import { type InputRadioOption } from '@/types/InputRadioOption';
 import { type SearchBy } from '@/types/SearchBy';
 
 interface UseControllerReturn {
@@ -15,7 +16,7 @@ interface UseControllerReturn {
   users: User[];
   isRefreshing: boolean;
   total?: number;
-  onUpdateSearchBy: (value: SearchBy) => void;
+  onChangeSearchBy: (value: InputRadioOption['value']) => void;
   onSearch: (value: string) => void;
   onRefreshList: () => Promise<void>;
   onEndReached: () => void;
@@ -60,11 +61,14 @@ export const useController = (): UseControllerReturn => {
     }
   }, [isError, notification]);
 
-  const onUpdateSearchBy = (value: SearchBy): void => {
-    searchByRef.current = value;
-    setSearchBy(value);
-    refetch();
-  };
+  const onChangeSearchBy = useCallback(
+    (value: InputRadioOption['value']): void => {
+      searchByRef.current = value as SearchBy;
+      setSearchBy(value as SearchBy);
+      refetch();
+    },
+    [refetch],
+  );
 
   const onRefreshList = async (): Promise<void> => {
     skipRef.current = 0;
@@ -74,19 +78,22 @@ export const useController = (): UseControllerReturn => {
   };
 
   const onDebaounce = useDebounce(DEBOUNCE_DELAY);
-  const onSearch = (value: string): void => {
-    skipRef.current = 0;
-    searchRef.current = value;
-    setHasSearch(value !== '');
-    onDebaounce(refetch);
-  };
+  const onSearch = useCallback(
+    (value: string): void => {
+      skipRef.current = 0;
+      searchRef.current = value;
+      setHasSearch(value !== '');
+      onDebaounce(refetch);
+    },
+    [onDebaounce, refetch],
+  );
 
-  const onClearSearch = (): void => {
+  const onClearSearch = useCallback((): void => {
     skipRef.current = 0;
     searchRef.current = '';
     setHasSearch(false);
     refetch();
-  };
+  }, [refetch]);
 
   const onEndReached = (): void => {
     const canLoadMoreData = !isLoading && skipRef.current < Number(data?.total);
@@ -103,7 +110,7 @@ export const useController = (): UseControllerReturn => {
     total: data?.total,
     users,
     isRefreshing,
-    onUpdateSearchBy,
+    onChangeSearchBy,
     onRefreshList,
     onEndReached,
     onClearSearch,

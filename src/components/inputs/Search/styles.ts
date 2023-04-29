@@ -5,7 +5,7 @@ import { Colors } from '@/constants/Colors';
 export const Container = styled.View`
   width: 100%;
   padding: 0 10px;
-  margin: 10px 0 14px;
+  margin: 10px 0 8px;
 `;
 
 export const InputContainer = styled.View`
