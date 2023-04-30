@@ -65,7 +65,9 @@ export const useController = (): UseControllerReturn => {
     (value: InputRadioOption['value']): void => {
       searchByRef.current = value as SearchBy;
       setSearchBy(value as SearchBy);
-      refetch();
+      if (searchRef.current !== '') {
+        refetch();
+      }
     },
     [refetch],
   );
@@ -96,7 +98,8 @@ export const useController = (): UseControllerReturn => {
   }, [refetch]);
 
   const onEndReached = (): void => {
-    const canLoadMoreData = !isLoading && skipRef.current < Number(data?.total);
+    const canLoadMoreData =
+      !isLoading && skipRef.current < Number(data?.total) - LIMIT;
     if (canLoadMoreData) {
       skipRef.current = skipRef.current + LIMIT;
       refetch();

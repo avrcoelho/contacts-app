@@ -18,6 +18,11 @@ jest.mock('@/hooks/useDebounce', () => ({
 
 const mockGetUsers = getUsers as jest.Mock;
 const mockUseNotification = useNotification as jest.Mock;
+const mockError = jest.fn();
+mockUseNotification.mockImplementation(() => ({
+  error: mockError,
+}));
+const users = [...Array(40).keys()].map(() => usersMOck.users[0]);
 
 describe('Contact hook controller', () => {
   afterEach(jest.clearAllMocks);
@@ -34,7 +39,11 @@ describe('Contact hook controller', () => {
   });
 
   it('should be able to return users after load more data', async () => {
-    mockGetUsers.mockResolvedValue(usersMOck);
+    mockGetUsers.mockResolvedValue({
+      ...usersMOck,
+      users,
+      total: 40,
+    });
     const { result } = renderHook(useController);
 
     await waitFor(() => result.current.users);
@@ -43,33 +52,33 @@ describe('Contact hook controller', () => {
     });
 
     await waitFor(() => {
-      expect(result.current.users).toHaveLength(2);
+      expect(result.current.users).toHaveLength(40);
     });
   });
 
   it('should not be able to load more users', async () => {
-    mockGetUsers.mockResolvedValue(usersMOck);
+    mockGetUsers.mockResolvedValue({
+      ...usersMOck,
+      users,
+      total: 40,
+    });
     const { result } = renderHook(useController);
 
     await waitFor(() => result.current.users);
     act(() => {
       result.current.onEndReached();
     });
-    await waitFor(() => result.current.users.length === 2);
+    await waitFor(() => result.current.users.length === 80);
     act(() => {
       result.current.onEndReached();
     });
 
     await waitFor(() => {
-      expect(result.current.users).toHaveLength(2);
+      expect(result.current.users).toHaveLength(80);
     });
   });
 
   it('should be able to dispatch notification error when request failure', async () => {
-    const mockError = jest.fn();
-    mockUseNotification.mockImplementation(() => ({
-      error: mockError,
-    }));
     mockGetUsers.mockRejectedValue(new Error('Some arror occurred'));
     renderHook(useController);
 
@@ -81,6 +90,23 @@ describe('Contact hook controller', () => {
   });
 
   it('should be able to change searchBy value', async () => {
+    mockGetUsers.mockResolvedValue(usersMOck);
+    const { result } = renderHook(useController);
+
+    act(() => {
+      result.current.onSearch('John');
+    });
+    act(() => {
+      result.current.onChangeSearchBy('email');
+    });
+
+    expect(result.current.searchBy).toBe('email');
+    await act(async () => {
+      await Promise.resolve();
+    });
+  });
+
+  it('should be able to change searchBy value without search value', async () => {
     mockGetUsers.mockResolvedValue(usersMOck);
     const { result } = renderHook(useController);
 

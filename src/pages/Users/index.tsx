@@ -1,11 +1,17 @@
 import { useMemo } from 'react';
 
+import { InputRadio } from '@/components/inputs/Radio';
+import { InputSearch } from '@/components/inputs/Search';
 import { UserItem } from '@/components/UserItem';
+import { searchByOptions } from '@/constants/searchByOptions';
 
-import { InputRadio } from '../../components/inputs/Radio';
-import { InputSearch } from '../../components/inputs/Search';
-import { searchByOptions } from '../../constants/searchByOptions';
-import { Container, ItemSeparator, UsersList } from './styles';
+import {
+  Container,
+  ItemSeparator,
+  Loader,
+  LoaderContainer,
+  UsersList,
+} from './styles';
 import { useController } from './useController';
 
 export const Users = (): JSX.Element => {
@@ -41,6 +47,14 @@ export const Users = (): JSX.Element => {
     [hasSearch, onClearSearch, onSearch, onChangeSearchBy, searchBy],
   );
 
+  const listFooter = useMemo(() => {
+    return isLoading && !isRefreshing ? (
+      <LoaderContainer>
+        <Loader />
+      </LoaderContainer>
+    ) : null;
+  }, [isLoading, isRefreshing]);
+
   return (
     <Container>
       <UsersList
@@ -50,13 +64,13 @@ export const Users = (): JSX.Element => {
         onEndReachedThreshold={0.1}
         onRefresh={onRefreshList}
         refreshing={isRefreshing}
-        initialNumToRender={4}
         keyboardDismissMode="on-drag"
         keyboardShouldPersistTaps="handled"
         viewabilityConfig={{ viewAreaCoveragePercentThreshold: 20 }}
         renderItem={({ item }) => <UserItem item={item} />}
         ListHeaderComponent={listHeader}
         ItemSeparatorComponent={ItemSeparator}
+        ListFooterComponent={listFooter}
       />
     </Container>
   );

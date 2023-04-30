@@ -1,5 +1,6 @@
 import { type ParamListBase, useNavigation } from '@react-navigation/native';
 import { type StackNavigationProp } from '@react-navigation/stack';
+import { memo } from 'react';
 
 import { Image } from '@/components/Image';
 import { Routes } from '@/constants/Routes';
@@ -12,7 +13,7 @@ interface UserItemProps {
   item: User;
 }
 
-export const UserItem = ({ item }: UserItemProps): JSX.Element => {
+const Component = ({ item }: UserItemProps): JSX.Element => {
   const onSetUser = useUserStore(state => state.onSetUser);
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
 
@@ -30,3 +31,5 @@ export const UserItem = ({ item }: UserItemProps): JSX.Element => {
     </Container>
   );
 };
+
+export const UserItem = memo(Component);
