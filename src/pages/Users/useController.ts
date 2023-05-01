@@ -15,7 +15,6 @@ interface UseControllerReturn {
   hasSearch: boolean;
   users: User[];
   isRefreshing: boolean;
-  total?: number;
   onChangeSearchBy: (value: InputRadioOption['value']) => void;
   onSearch: (value: string) => void;
   onRefreshList: () => Promise<void>;
@@ -110,7 +109,6 @@ export const useController = (): UseControllerReturn => {
     isLoading,
     searchBy,
     hasSearch,
-    total: data?.total,
     users,
     isRefreshing,
     onChangeSearchBy,

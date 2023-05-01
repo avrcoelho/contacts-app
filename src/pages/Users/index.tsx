@@ -20,7 +20,6 @@ export const Users = (): JSX.Element => {
     isRefreshing,
     searchBy,
     hasSearch,
-    total,
     users,
     onChangeSearchBy,
     onRefreshList,
@@ -50,7 +49,7 @@ export const Users = (): JSX.Element => {
   const listFooter = useMemo(() => {
     return isLoading && !isRefreshing ? (
       <LoaderContainer>
-        <Loader />
+        <Loader accessibilityLabel="Loading users" />
       </LoaderContainer>
     ) : null;
   }, [isLoading, isRefreshing]);
