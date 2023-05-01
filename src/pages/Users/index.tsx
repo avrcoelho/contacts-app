@@ -49,7 +49,7 @@ export const Users = (): JSX.Element => {
   const listFooter = useMemo(() => {
     return isLoading && !isRefreshing ? (
       <LoaderContainer>
-        <Loader accessibilityLabel="Loading users" />
+        <Loader accessibilityLabel="Carregando contatos..." />
       </LoaderContainer>
     ) : null;
   }, [isLoading, isRefreshing]);

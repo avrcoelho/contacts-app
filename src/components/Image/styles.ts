@@ -13,7 +13,7 @@ export const Container = styled.View<ContainerProps>`
   height: ${({ $size }) => $size}px;
   border-radius: ${({ $size }) => $size / TWO}px;
   border-color: ${Colors.LIGHT_GRAY};
-  border-width: 1px;
+  border-width: 4px;
   position: relative;
 `;
 

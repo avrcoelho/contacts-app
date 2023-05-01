@@ -35,14 +35,14 @@ describe('Users page', () => {
   it('should be able to render loader component', () => {
     render(<Users />);
 
-    expect(screen.getByLabelText('Loading users')).toBeTruthy();
+    expect(screen.getByLabelText('Carregando contatos...')).toBeTruthy();
   });
 
   it('should not be able to render loader component', () => {
     mockUseControllerReturn.isLoading = false;
     render(<Users />);
 
-    expect(screen.queryByLabelText('Loading users')).toBeFalsy();
+    expect(screen.queryByLabelText('Carregando contatos...')).toBeFalsy();
   });
 
   it('should be able to render contacts', () => {

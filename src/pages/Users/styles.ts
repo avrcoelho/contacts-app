@@ -7,7 +7,6 @@ import { type User } from '@/models/User';
 export const Container = styled.View`
   padding: 0 8px;
   flex: 1;
-  background-color: ${Colors.WHITE};
 `;
 
 export const UsersList = styled(FlatList<User>)``;
