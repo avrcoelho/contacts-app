@@ -1,7 +1,7 @@
+import { ButtonContact } from '@/components/Buttons/Contact';
 import { Image } from '@/components/Image';
 import { useUserStore } from '@/stores/useUser';
 
-import { ButtonContact } from '../../components/Buttons/Contact';
 import {
   Address,
   AddressTitle,
