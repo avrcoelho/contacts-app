@@ -36,6 +36,7 @@
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/no-floating-promises": "off",
     "@typescript-eslint/no-misused-promises": "off",
+    "n/no-callback-literal": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
