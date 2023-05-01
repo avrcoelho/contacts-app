@@ -26,7 +26,7 @@ const Component = ({ item }: UserItemProps): JSX.Element => {
 
   return (
     <Container onPress={onPress}>
-      <Image uri={item.image} size={50} />
+      <Image uri={item.image} size={60} />
       <FullName>{fullName}</FullName>
     </Container>
   );

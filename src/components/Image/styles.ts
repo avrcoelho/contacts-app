@@ -7,13 +7,14 @@ interface ContainerProps {
 }
 
 const TWO = 2;
+const FOUR = 4;
 
 export const Container = styled.View<ContainerProps>`
   width: ${({ $size }) => $size}px;
   height: ${({ $size }) => $size}px;
   border-radius: ${({ $size }) => $size / TWO}px;
   border-color: ${Colors.LIGHT_GRAY};
-  border-width: 4px;
+  border-width: 2px;
   position: relative;
 `;
 
@@ -33,8 +34,8 @@ interface ImageProps extends ContainerProps {
 }
 
 export const Image = styled.Image<ImageProps>`
-  width: ${({ $size }) => $size}px;
-  height: ${({ $size }) => $size}px;
+  width: ${({ $size }) => $size - FOUR}px;
+  height: ${({ $size }) => $size - FOUR}px;
   border-radius: ${({ $size }) => $size / TWO}px;
   opacity: ${({ $isLoaded }) => Number($isLoaded)};
 `;

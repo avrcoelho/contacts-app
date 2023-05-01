@@ -20,7 +20,7 @@ export const Image = ({ size, uri }: ImageProps): JSX.Element => {
       <ImageStyled
         $size={size}
         $isLoaded={isLoaded}
-        resizeMode="center"
+        resizeMode="cover"
         source={{ uri }}
         onLoad={onLoad}
       />

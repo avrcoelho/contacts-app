@@ -14,6 +14,9 @@ import {
 } from './styles';
 import { useController } from './useController';
 
+const ITEM_SIZE = 72;
+const END_REACHED_THRESHOLD = 0.1;
+
 export const Users = (): JSX.Element => {
   const {
     isLoading,
@@ -60,9 +63,14 @@ export const Users = (): JSX.Element => {
         keyExtractor={user => String(user.id)}
         data={users}
         onEndReached={onEndReached}
-        onEndReachedThreshold={0.1}
+        onEndReachedThreshold={END_REACHED_THRESHOLD}
         onRefresh={onRefreshList}
         refreshing={isRefreshing}
+        getItemLayout={(_, index) => ({
+          length: ITEM_SIZE,
+          offset: ITEM_SIZE * index,
+          index,
+        })}
         keyboardDismissMode="on-drag"
         keyboardShouldPersistTaps="handled"
         viewabilityConfig={{ viewAreaCoveragePercentThreshold: 20 }}
