@@ -2,7 +2,13 @@ import { Image } from '@/components/Image';
 import { useUserStore } from '@/stores/useUser';
 
 import { ButtonContact } from '../../components/Buttons/Contact';
-import { Container, ImageContainer, Name } from './styles';
+import {
+  Address,
+  AddressTitle,
+  Container,
+  ImageContainer,
+  Name,
+} from './styles';
 
 const IMAGE_SIZE = 160;
 
@@ -21,6 +27,13 @@ export const UserDetails = (): JSX.Element | null => {
 
       <ButtonContact contact={user.phone} type="phone" />
       <ButtonContact contact={user.email} type="mail" />
+
+      <AddressTitle>Endereço</AddressTitle>
+      <Address>{user.address.address}</Address>
+      <Address>
+        {user.address.city}, {user.address.state}
+      </Address>
+      <Address>{user.address.postalCode}</Address>
     </Container>
   );
 };

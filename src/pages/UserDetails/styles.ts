@@ -19,3 +19,16 @@ export const Name = styled.Text`
   text-align: center;
   margin: 12px 0 32px;
 `;
+
+export const AddressTitle = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  color: ${Colors.DARK};
+  margin: 12px 0 8px;
+`;
+
+export const Address = styled.Text`
+  font-size: 18px;
+  color: ${Colors.DARK};
+  margin-top: 2px;
+`;
