@@ -25,7 +25,9 @@ export const ButtonContact = ({
     });
   };
 
-  const definedUrl = type === 'mail' ? `mailto:${contact}` : `tel:${contact}`;
+  const parsedContact = contact.replace(/\s/g, '');
+  const definedUrl =
+    type === 'mail' ? `mailto:${parsedContact}` : `tel:${parsedContact}`;
 
   return (
     <Container
