@@ -4,13 +4,12 @@ import { type Users } from '@/types/Users';
 
 export const getUsers = async ({
   search,
-  searchBy,
   skip,
 } = DEFAULT_PARAMS): Promise<Users> => {
-  const filterPath =
-    search !== '' ? `filter?key=${searchBy}&value=${search}` : '';
-  const { data } = await api.get<Users>(`users/${filterPath}`, {
+  const searchPath = search === '' ? '' : 'search';
+  const { data } = await api.get<Users>(`users/${searchPath}`, {
     params: {
+      q: search,
       limit: LIMIT,
       skip,
       select: 'id,firstName,lastName,email,phone,image,address',
