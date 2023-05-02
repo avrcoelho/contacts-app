@@ -6,7 +6,6 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { useQuery } from '@/hooks/useQuery';
 import { type User } from '@/models/User';
 import { getUsers } from '@/services/getUsers';
-import { type InputRadioOption } from '@/types/InputRadioOption';
 
 interface UseControllerReturn {
   isLoading: boolean;
