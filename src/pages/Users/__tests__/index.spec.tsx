@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react-native';
 
-import { usersMOck } from '@/mocks/users';
+import { usersMock } from '@/mocks/users';
 
 import { Users } from '..';
 import { useController } from '../useController';
@@ -17,7 +17,7 @@ const mockUseControllerReturn = {
   isLoading: true,
   isRefreshing: false,
   hasSearch: false,
-  users: usersMOck.users,
+  users: usersMock.users,
   onRefreshList: jest.fn(),
   onEndReached: jest.fn(),
   onClearSearch: jest.fn(),

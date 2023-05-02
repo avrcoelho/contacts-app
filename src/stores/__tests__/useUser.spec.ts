@@ -1,10 +1,10 @@
 import { act, renderHook } from '@testing-library/react-native';
 
-import { usersMOck } from '@/mocks/users';
+import { usersMock } from '@/mocks/users';
 
 import { useUserStore } from '../useUser';
 
-const [user] = usersMOck.users;
+const [user] = usersMock.users;
 
 describe('useUserStore', () => {
   it('should be able to set user data', () => {

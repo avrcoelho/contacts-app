@@ -1,7 +1,7 @@
 import { type User } from '@/models/User';
 import { type ApiResponse } from '@/types/ApiResponse';
 
-export const usersMOck: ApiResponse<{ users: User[] }> = {
+export const usersMock: ApiResponse<{ users: User[] }> = {
   users: [
     {
       id: 1,

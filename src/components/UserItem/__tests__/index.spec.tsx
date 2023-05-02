@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { fireEvent, render, screen } from '@testing-library/react-native';
 
 import { Routes } from '@/constants/Routes';
-import { usersMOck } from '@/mocks/users';
+import { usersMock } from '@/mocks/users';
 
 import { UserItem } from '..';
 
@@ -14,7 +14,7 @@ mockUseNavigation.mockImplementation(() => ({
 }));
 
 const props = {
-  item: usersMOck.users[0],
+  item: usersMock.users[0],
 };
 
 describe('UserItem component', () => {

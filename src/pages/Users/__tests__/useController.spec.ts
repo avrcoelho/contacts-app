@@ -1,7 +1,7 @@
 import { act, renderHook, waitFor } from '@testing-library/react-native';
 import { useNotification } from 'react-native-hook-notification';
 
-import { usersMOck } from '@/mocks/users';
+import { usersMock } from '@/mocks/users';
 import { getUsers } from '@/services/getUsers';
 
 import { useController } from '../useController';
@@ -22,25 +22,25 @@ const mockError = jest.fn();
 mockUseNotification.mockImplementation(() => ({
   error: mockError,
 }));
-const users = [...Array(40).keys()].map(() => usersMOck.users[0]);
+const users = [...Array(40).keys()].map(() => usersMock.users[0]);
 
 describe('Contact hook controller', () => {
   afterEach(jest.clearAllMocks);
 
   it('should be able to return users', async () => {
-    mockGetUsers.mockResolvedValue(usersMOck);
+    mockGetUsers.mockResolvedValue(usersMock);
     const { result } = renderHook(useController);
 
     await waitFor(() => {
       expect(result.current.users).toEqual(
-        expect.arrayContaining(usersMOck.users),
+        expect.arrayContaining(usersMock.users),
       );
     });
   });
 
   it('should be able to return users after load more data', async () => {
     mockGetUsers.mockResolvedValue({
-      ...usersMOck,
+      ...usersMock,
       users,
       total: 40,
     });
@@ -58,7 +58,7 @@ describe('Contact hook controller', () => {
 
   it('should not be able to load more users', async () => {
     mockGetUsers.mockResolvedValue({
-      ...usersMOck,
+      ...usersMock,
       users,
       total: 40,
     });
@@ -90,7 +90,7 @@ describe('Contact hook controller', () => {
   });
 
   it('should be able to reset users data after refetch list', async () => {
-    mockGetUsers.mockResolvedValue(usersMOck);
+    mockGetUsers.mockResolvedValue(usersMock);
     const { result } = renderHook(useController);
 
     await waitFor(() => result.current.users);
@@ -108,7 +108,7 @@ describe('Contact hook controller', () => {
   });
 
   it('should be able to search', async () => {
-    mockGetUsers.mockResolvedValue(usersMOck);
+    mockGetUsers.mockResolvedValue(usersMock);
     const { result } = renderHook(useController);
 
     act(() => {
@@ -122,7 +122,7 @@ describe('Contact hook controller', () => {
   });
 
   it('should be able to clear search', async () => {
-    mockGetUsers.mockResolvedValue(usersMOck);
+    mockGetUsers.mockResolvedValue(usersMock);
     const { result } = renderHook(useController);
 
     act(() => {
