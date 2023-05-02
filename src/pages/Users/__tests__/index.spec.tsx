@@ -16,10 +16,8 @@ const mockUseContoller = useController as jest.Mock;
 const mockUseControllerReturn = {
   isLoading: true,
   isRefreshing: false,
-  searchBy: 'email',
   hasSearch: false,
   users: usersMOck.users,
-  onChangeSearchBy: jest.fn(),
   onRefreshList: jest.fn(),
   onEndReached: jest.fn(),
   onClearSearch: jest.fn(),

@@ -7,15 +7,12 @@ import { useQuery } from '@/hooks/useQuery';
 import { type User } from '@/models/User';
 import { getUsers } from '@/services/getUsers';
 import { type InputRadioOption } from '@/types/InputRadioOption';
-import { type SearchBy } from '@/types/SearchBy';
 
 interface UseControllerReturn {
   isLoading: boolean;
-  searchBy: SearchBy;
   hasSearch: boolean;
   users: User[];
   isRefreshing: boolean;
-  onChangeSearchBy: (value: InputRadioOption['value']) => void;
   onSearch: (value: string) => void;
   onRefreshList: () => Promise<void>;
   onEndReached: () => void;
@@ -25,18 +22,15 @@ interface UseControllerReturn {
 const DEBOUNCE_DELAY = 500;
 
 export const useController = (): UseControllerReturn => {
-  const [searchBy, setSearchBy] = useState<SearchBy>('firstName');
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [hasSearch, setHasSearch] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
   const searchRef = useRef('');
-  const searchByRef = useRef<SearchBy>('firstName');
   const skipRef = useRef(0);
 
   const { data, isLoading, refetch, isSuccess, isError } = useQuery(
     async () =>
       await getUsers({
-        searchBy: searchByRef.current,
         search: searchRef.current,
         skip: skipRef.current,
       }),
@@ -59,17 +53,6 @@ export const useController = (): UseControllerReturn => {
       });
     }
   }, [isError, notification]);
-
-  const onChangeSearchBy = useCallback(
-    (value: InputRadioOption['value']): void => {
-      searchByRef.current = value as SearchBy;
-      setSearchBy(value as SearchBy);
-      if (searchRef.current !== '') {
-        refetch();
-      }
-    },
-    [refetch],
-  );
 
   const onRefreshList = async (): Promise<void> => {
     skipRef.current = 0;
@@ -107,11 +90,9 @@ export const useController = (): UseControllerReturn => {
 
   return {
     isLoading,
-    searchBy,
     hasSearch,
     users,
     isRefreshing,
-    onChangeSearchBy,
     onRefreshList,
     onEndReached,
     onClearSearch,

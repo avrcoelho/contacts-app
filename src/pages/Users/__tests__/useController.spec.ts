@@ -89,37 +89,6 @@ describe('Contact hook controller', () => {
     });
   });
 
-  it('should be able to change searchBy value', async () => {
-    mockGetUsers.mockResolvedValue(usersMOck);
-    const { result } = renderHook(useController);
-
-    act(() => {
-      result.current.onSearch('John');
-    });
-    act(() => {
-      result.current.onChangeSearchBy('email');
-    });
-
-    expect(result.current.searchBy).toBe('email');
-    await act(async () => {
-      await Promise.resolve();
-    });
-  });
-
-  it('should be able to change searchBy value without search value', async () => {
-    mockGetUsers.mockResolvedValue(usersMOck);
-    const { result } = renderHook(useController);
-
-    act(() => {
-      result.current.onChangeSearchBy('email');
-    });
-
-    expect(result.current.searchBy).toBe('email');
-    await act(async () => {
-      await Promise.resolve();
-    });
-  });
-
   it('should be able to reset users data after refetch list', async () => {
     mockGetUsers.mockResolvedValue(usersMOck);
     const { result } = renderHook(useController);

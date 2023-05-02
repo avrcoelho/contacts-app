@@ -1,9 +1,7 @@
 import { useMemo } from 'react';
 
-import { InputRadio } from '@/components/inputs/Radio';
 import { InputSearch } from '@/components/inputs/Search';
 import { UserItem } from '@/components/UserItem';
-import { searchByOptions } from '@/constants/searchByOptions';
 
 import {
   Container,
@@ -21,10 +19,8 @@ export const Users = (): JSX.Element => {
   const {
     isLoading,
     isRefreshing,
-    searchBy,
     hasSearch,
     users,
-    onChangeSearchBy,
     onRefreshList,
     onEndReached,
     onClearSearch,
@@ -33,20 +29,13 @@ export const Users = (): JSX.Element => {
 
   const listHeader = useMemo(
     () => (
-      <>
-        <InputSearch
-          hasSearch={hasSearch}
-          onClearSearch={onClearSearch}
-          onSearch={onSearch}
-        />
-        <InputRadio
-          options={searchByOptions}
-          value={searchBy}
-          onChange={onChangeSearchBy}
-        />
-      </>
+      <InputSearch
+        hasSearch={hasSearch}
+        onClearSearch={onClearSearch}
+        onSearch={onSearch}
+      />
     ),
-    [hasSearch, onClearSearch, onSearch, onChangeSearchBy, searchBy],
+    [hasSearch, onClearSearch, onSearch],
   );
 
   const listFooter = useMemo(() => {
